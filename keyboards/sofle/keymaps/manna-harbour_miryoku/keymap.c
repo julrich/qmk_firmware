@@ -68,7 +68,7 @@
 // QWERTY,
 // Light on inner column and underglow
 const rgblight_segment_t PROGMEM layer_miryoku_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-  SET_LAYER_ID(HSV_RED)
+  SET_LAYER_ID(HSV_BLUE)
 
 );
 
@@ -93,30 +93,73 @@ void keyboard_post_init_user(void) {
 #ifdef OLED_ENABLE
 
 static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
-        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+    static const char PROGMEM raw_logo[] = {
+        224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,255,255,255,255,255,  0,  0,  1,255,127, 63, 31,143,207,239,255,255,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,240,248,248,240,  0,  0,128,128,128,  0,176,184,184,184,  0,  0,  0,128,128,128,128,128,  0,  0,  0,248,248,248,  0,  0,128,128,128,128,  0,  0,128,128,128,128,128,  0,128,128,240,240,240,128,128,128,  0,  0,  0,128,128,128,128,128,128,128,  0,128,128,128,128,128,128,128,128,240,240,240,224,128,128,  0,240,240,240,240,112,112,112,240,224,224,192,  0,  0,224,240,240,112,112,112,240,240,224,
+        0,255,255,255,255,255,128,128,128,254,254,254,251,243,225,195,135,207,255,255,255,255,  0,  0,  0,  0,  0,  0,  0,  0,255,255,255,255, 30,127,255,243,225,128,127,255,255,255,  0, 62,127,255,227,227,227,247,119, 22,  0,255,255,255, 62, 63,255,251,225,192, 54,127,255,255,255,255,251,123,  3,  3, 63,127,255,243,227,227,  0, 62,127,255,227,227,227,255,255,255,  0,255,255,255,255,  7,  3,  3,  3, 63,127,255,255,227,227,  0,255,255,255,255,224,224,240,240,127, 63, 31, 15, 16,123,127,247,231,239,239,254,126,124,
+        24,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+        0,
     };
-
-    oled_write_P(qmk_logo, false);
+    oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
+
+/*
+#define MIRYOKU_LAYER_LIST \
+MIRYOKU_X(BASE,   "Base") \
+MIRYOKU_X(EXTRA,  "Extra") \
+MIRYOKU_X(TAP,    "Tap") \
+MIRYOKU_X(BUTTON, "Button") \
+MIRYOKU_X(NAV,    "Nav") \
+MIRYOKU_X(MOUSE,  "Mouse") \
+MIRYOKU_X(MEDIA,  "Media") \
+MIRYOKU_X(NUM,    "Num") \
+MIRYOKU_X(SYM,    "Sym") \
+MIRYOKU_X(FUN,    "Fun")
+
+#endif
+*/
+
+enum layers { BASE, EXTRA, TAP, BUTTON, NAV, MOUSE, MEDIA, NUM, SYM, FUN };
 
 static void print_status_narrow(void) {
     // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("Dane\nEvans"), false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write_ln_P(PSTR("kick\nstart"), false);
 
     oled_write_ln_P(PSTR(""), false);
 
     switch (get_highest_layer(default_layer_state)) {
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("CmkDH"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
+        case BASE:
+            oled_write_P(PSTR("Base\n"), false);
+            break;
+        case BUTTON:
+            oled_write_P(PSTR("Button"), false);
+            break;
+        case MEDIA:
+            oled_write_P(PSTR("Media"), false);
+            break;
+        case NAV:
+            oled_write_P(PSTR("Nav\n"), false);
+            break;
+        case MOUSE:
+            oled_write_P(PSTR("Mouse"), false);
+            break;
+        case SYM:
+            oled_write_P(PSTR("Sym\n"), false);
+            break;
+        case NUM:
+            oled_write_P(PSTR("Num\n"), false);
+            break;
+        case FUN:
+            oled_write_P(PSTR("Fun\n"), false);
+            break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
