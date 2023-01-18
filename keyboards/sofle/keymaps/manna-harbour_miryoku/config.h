@@ -5,6 +5,8 @@
 
 #pragma once
 
+#define USB_MAX_POWER_CONSUMPTION 100
+
 #define XXX KC_NO
 
 #define LAYOUT_miryoku(\

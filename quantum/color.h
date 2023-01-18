@@ -69,6 +69,8 @@
 #define HSV_TURQUOISE   123,  90, 112
 #define HSV_WHITE         0,   0, 255
 #define HSV_YELLOW       43, 255, 255
+#define HSV_KSDSPRI      192, 89,  22
+#define HSV_KSDSSEC      64, 100,  50
 #define HSV_OFF         HSV_BLACK
 
 // clang-format on
